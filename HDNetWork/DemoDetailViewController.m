@@ -486,7 +486,7 @@
 
 - (void)uploadImage
 {
-    UIImage *image = [UIImage imageNamed:@"warren.jpg"];
+    UIImage *image = [UIImage imageNamed:@"avato.png"];
     NSInteger positionX = self.resultTextView.frame.size.width / 2 - 121;
     NSInteger positionY = self.resultTextView.frame.size.height / 2 - 80;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(positionX, positionY, 242, 160)];
@@ -513,7 +513,7 @@
 - (void)addHeaderValues
 {
     HDRequestManagerConfiguration *configuration = [HDNetWork sharedHDNetWork].configuration;
-    configuration.builtinParameters = @{@"operationSys":@"ios",@"requestTool":@"MGJ"};
+    configuration.builtinParameters = @{@"operationSys":@"ios",@"requestTool":@"HD"};
     
     [[HDNetWork sharedHDNetWork] HDGET:@"http://httpbin.org/get" parameters:nil startImmediately:YES configurationHandler:nil completionHandler:^(NSError *error, id result, BOOL isFromCache, AFHTTPRequestOperation *operation) {
         if (!error) {

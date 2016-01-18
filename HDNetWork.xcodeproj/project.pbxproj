@@ -18,6 +18,7 @@
 		07F59EDF1C4944630018214F /* DemoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F59EDC1C4944630018214F /* DemoListViewController.m */; };
 		07F59EE01C4944630018214F /* DemoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F59EDE1C4944630018214F /* DemoDetailViewController.m */; };
 		493AE71D0487DB4C6639DE2C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 758C33D0315244063CECAE68 /* libPods.a */; };
+		AEC615921C4C783600A7514E /* avato.png in Resources */ = {isa = PBXBuildFile; fileRef = AEC615911C4C783600A7514E /* avato.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		07F59EDE1C4944630018214F /* DemoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDetailViewController.m; sourceTree = "<group>"; };
 		758C33D0315244063CECAE68 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A869F70502378B4E45A0849A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AEC615911C4C783600A7514E /* avato.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avato.png; sourceTree = "<group>"; };
 		F25184954C4D886EE4A74116 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 		07F59EB61C4943030018214F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AEC615911C4C783600A7514E /* avato.png */,
 				07F59EB71C4943030018214F /* main.m */,
 			);
 			name = "Supporting Files";
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07F59EC61C4943040018214F /* LaunchScreen.storyboard in Resources */,
+				AEC615921C4C783600A7514E /* avato.png in Resources */,
 				07F59EC31C4943040018214F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
