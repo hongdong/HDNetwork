@@ -8,10 +8,10 @@
 ```
 	
 <br /> 
-<img src="https://raw.githubusercontent.com/JohnnyHooo/HJNetwork/master/HJNetwork.png"  width="313" height="616"  alt="Demo效果" align=right />
+<img src="https://github.com/hongdong/HDNetwork/blob/master/HDNetworkDemo.png"  width="313" height="616"  alt="Demo效果" align=right />
 
 ## 特点
-- HDNetwork 对 AFHTTPSessionManager 进行二次封装。包括网络请求、文件上传、文件下载这三个方法。并且支持RESTful API GET、POST、PUT、DELETE、PATCH的请求。同时使用YYCache做了强大的缓存策略。
+- HDNetwork 对 AFHTTPSessionManager 进行二次封装。包括网络请求、文件上传、文件下载这三个方法。并且支持RESTful API GET、POST、PUT、DELETE、PATCH的请求。同时使用YYCache做了强大的缓存策略，并做了RAC的封装。
 
 - 拥有 AFNetwork 大部分常用功能，包括网络状态监听等，提供类方法和实例方法调用。
 
