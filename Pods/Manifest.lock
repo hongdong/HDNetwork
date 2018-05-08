@@ -14,21 +14,25 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - ReactiveObjC (3.1.0)
   - YYCache (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
+  - ReactiveObjC
   - YYCache
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - ReactiveObjC
     - YYCache
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: 8ac291a64f8c18d9f03d5fb0f7593805a2e280d6
+PODFILE CHECKSUM: f84f214757e361ad4acf74648ff92d1bc8726d27
 
 COCOAPODS: 1.5.0

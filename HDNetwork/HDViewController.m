@@ -8,6 +8,7 @@
 
 #import "HDViewController.h"
 #import "HDNetwork.h"
+#import "HDNetwork+RAC.h"
 
 @interface HDViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *urlTextField;
@@ -65,7 +66,7 @@
 - (IBAction)request:(UIButton *)sender {
     sender.enabled = NO;
     __weak __typeof(&*self)weakSelf = self;
-    [HDNetwork HTTPWithMethod:method url:_urlTextField.text parameters:nil cachePolicy:cachePolicy callback:^(id responseObject, NSError *error) {
+    [HDNetwork HTTPWithMethod:method url:_urlTextField.text parameters:nil cachePolicy:cachePolicy callback:^(id responseObject, NSError *error, BOOL isFromCache) {
         sender.enabled = YES;
         if (!error) {
             weakSelf.responseTextView.text = [NSString stringWithFormat:@"%@",responseObject];

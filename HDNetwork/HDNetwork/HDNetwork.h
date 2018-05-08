@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, HDResponseSerializer) {
 };
 
 /**请求的Block*/
-typedef void(^HDHttpRequest)(id responseObject, NSError *error);
+typedef void(^HDHttpRequest)(id responseObject, NSError *error, BOOL isFromCache);
 
 /**下载的Block*/
 typedef void(^HDHttpDownload)(NSString *path, NSError *error);
@@ -78,6 +78,12 @@ typedef void(^HDHttpProgress)(NSProgress *progress);
 
 /**网络状态Block*/
 typedef void(^HDNetworkStatus)(HDNetworkStatusType status);
+
+/**网络错误统一拦截处理*/
+typedef NSError *(^ErrorReduceBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error);
+
+/**请求结果拦截处理*/
+typedef id(^ResponseReduceBlock)(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject);
 
 
 
@@ -103,6 +109,12 @@ typedef void(^HDNetworkStatus)(HDNetworkStatusType status);
 
 /**设置接口基本参数(如:用户ID, Token)*/
 + (void)setBaseParameters:(NSDictionary *)parameters;
+
+/**设置统一预处理结果*/
++ (void)setResponseReduceBlock:(ResponseReduceBlock)responseReduceBlock;
+
+/**设置统一预处理错误*/
++ (void)setErrorReduceBlock:(ErrorReduceBlock)errorReduceBlock;
 
 /**实时获取网络状态*/
 + (void)getNetworkStatusWithBlock:(HDNetworkStatus)networkStatus;
@@ -378,6 +390,13 @@ typedef void(^HDNetworkStatus)(HDNetworkStatusType status);
  For example:证书注册的域名是www.baidu.com,那么mail.baidu.com是无法验证通过的
  */
 + (void)setSecurityPolicyWithCerPath:(NSString *)cerPath validatesDomainName:(BOOL)validatesDomainName;
+
+#pragma mark -- 拼接URL工具
+
+/**
+ 向URL的占位符中依次插入数组中的参数，识别:XXX(英文冒号)占位符
+ */
++ (NSString *)HDGenerateURLWithPattern:(NSString *)pattern parameters:(NSArray *)parameters;
 
 
 @end

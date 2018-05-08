@@ -29,9 +29,12 @@ static NSDictionary *_baseParameters;
 static NSArray *_filtrationCacheKey;
 static AFHTTPSessionManager *_sessionManager;
 static NSString *const NetworkResponseCache = @"HDNetworkResponseCache";
+static NSString *const specialCharacters = @"/?&.";
 static NSString * _baseURL;
 static NSString * _cacheVersion;
 static YYCache *_dataCache;
+static ErrorReduceBlock _errorReduceBlock;
+static ResponseReduceBlock _responseReduceBlock;
 
 /*所有的请求task数组*/
 + (NSMutableArray *)allSessionTask{
@@ -112,6 +115,18 @@ static YYCache *_dataCache;
 + (void)setBaseParameters:(NSDictionary *)parameters
 {
     _baseParameters = parameters;
+}
+
+/**设置统一预处理结果*/
++ (void)setResponseReduceBlock:(ResponseReduceBlock)responseReduceBlock
+{
+    _responseReduceBlock = responseReduceBlock;
+}
+
+/**设置统一预处理错误*/
++ (void)setErrorReduceBlock:(ErrorReduceBlock)errorReduceBlock
+{
+    _errorReduceBlock = errorReduceBlock;
 }
 
 /*实时获取网络状态*/
@@ -304,12 +319,12 @@ static YYCache *_dataCache;
     }else if (cachePolicy == HDCachePolicyCacheOnly){
         //只从缓存读数据，如果缓存没有数据，返回一个空。
         [self httpCacheForURL:url parameters:parameters withBlock:^(id<NSCoding> object) {
-            callback ? callback(object, nil) : nil;
+            callback ? callback(object, nil, YES) : nil;
         }];
     }else if (cachePolicy == HDCachePolicyNetworkOnly){
         //先从网络获取数据，同时会在本地缓存数据
-        [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error) {
-            callback ? callback(responseObject, error) : nil;
+        [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+            callback ? callback(responseObject, error, NO) : nil;
             [self setHttpCache:responseObject url:url parameters:parameters];
         }];
         
@@ -317,31 +332,31 @@ static YYCache *_dataCache;
         //先从缓存读取数据，如果没有再从网络获取
         [self httpCacheForURL:url parameters:parameters withBlock:^(id<NSCoding> object) {
             if (object) {
-                callback ? callback(object, nil) : nil;
+                callback ? callback(object, nil, YES) : nil;
             }else{
-                [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error) {
-                    callback ? callback(responseObject, error) : nil;
+                [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+                    callback ? callback(responseObject, error, NO) : nil;
                 }];
             }
         }];
     }else if (cachePolicy == HDCachePolicyNetworkElseCache){
         //先从网络获取数据，如果没有，此处的没有可以理解为访问网络失败，再从缓存读取
-        [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error) {
+        [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
             if (responseObject && !error) {
-                callback ? callback(responseObject, error) : nil;
+                callback ? callback(responseObject, error, NO) : nil;
                 [self setHttpCache:responseObject url:url parameters:parameters];
             }else{
                 [self httpCacheForURL:url parameters:parameters withBlock:^(id<NSCoding> object) {
-                    callback ? callback(object, nil) : nil;
+                    callback ? callback(object, nil, YES) : nil;
                 }];
             }
         }];
     }else if (cachePolicy == HDCachePolicyCacheThenNetwork){
         //先从缓存读取数据，然后在本地缓存数据，无论结果如何都会再次从网络获取数据，在这种情况下，Block将产生两次调用
         [self httpCacheForURL:url parameters:parameters withBlock:^(id<NSCoding> object) {
-            callback ? callback(object, nil) : nil;
-            [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error) {
-                callback ? callback(responseObject, error) : nil;
+            callback ? callback(object, nil, YES) : nil;
+            [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+                callback ? callback(responseObject, error, NO) : nil;
                 [self setHttpCache:responseObject url:url parameters:parameters];
             }];
         }];
@@ -362,13 +377,13 @@ static YYCache *_dataCache;
             ATLog(@"请求结果 = %@",[self jsonToString:responseObject]);
         }
         [[self allSessionTask] removeObject:task];
-        callback ? callback(responseObject, nil) : nil;
+        callback ? callback(_responseReduceBlock?_responseReduceBlock(task,responseObject):responseObject, nil, NO) : nil;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (_logEnabled) {
             ATLog(@"错误内容 = %@",error);
         }
-        callback ? callback(nil, error) : nil;
+        callback ? callback(nil, _errorReduceBlock?_errorReduceBlock(task,error):error, NO) : nil;
         [[self allSessionTask] removeObject:task];
     }];
 }
@@ -411,12 +426,12 @@ static YYCache *_dataCache;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         [[self allSessionTask] removeObject:task];
-        callback ? callback(responseObject, nil) : nil;
+        callback ? callback(responseObject, nil, NO) : nil;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         [[self allSessionTask] removeObject:task];
-        callback ? callback(nil, error) : nil;
+        callback ? callback(nil, error, NO) : nil;
     }];
     //添加最新的sessionTask到数组
     sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil;
@@ -441,12 +456,12 @@ static YYCache *_dataCache;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         [[self allSessionTask] removeObject:task];
-        callback ? callback(responseObject, nil) : nil;
+        callback ? callback(responseObject, nil, NO) : nil;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         [[self allSessionTask] removeObject:task];
-        callback ? callback(nil, error) : nil;
+        callback ? callback(nil, error, NO) : nil;
     }];
     //添加最新的sessionTask到数组
     sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil;
@@ -654,6 +669,54 @@ static YYCache *_dataCache;
     securitypolicy.validatesDomainName = validatesDomainName;
     securitypolicy.pinnedCertificates = [[NSSet alloc]initWithObjects:cerData, nil];
     [_sessionManager setSecurityPolicy:securitypolicy];
+}
+
++ (NSString *)HDGenerateURLWithPattern:(NSString *)pattern parameters:(NSArray *)parameters
+{
+    NSInteger startIndexOfColon = 0;
+    
+    NSMutableArray *placeholders = [NSMutableArray array];
+    
+    for (int i = 0; i < pattern.length; i++) {
+        NSString *character = [NSString stringWithFormat:@"%c", [pattern characterAtIndex:i]];
+        //找到开始的位置
+        if ([character isEqualToString:@":"]) {
+            startIndexOfColon = i;
+        }
+        //找到结束的位置
+        if ([specialCharacters rangeOfString:character].location != NSNotFound && i > (startIndexOfColon + 1) && startIndexOfColon) {
+            NSRange range = NSMakeRange(startIndexOfColon, i - startIndexOfColon);
+            NSString *placeholder = [pattern substringWithRange:range];
+            if (![self checkIfContainsSpecialCharacter:placeholder]) {
+                [placeholders addObject:placeholder];
+                startIndexOfColon = 0;
+            }
+        }
+        //字符串要结束了
+        if (i == pattern.length - 1 && startIndexOfColon) {
+            NSRange range = NSMakeRange(startIndexOfColon, i - startIndexOfColon + 1);
+            NSString *placeholder = [pattern substringWithRange:range];
+            if (![self checkIfContainsSpecialCharacter:placeholder]) {
+                [placeholders addObject:placeholder];
+            }
+        }
+    }
+    
+    __block NSString *parsedResult = pattern;
+    
+    [placeholders enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        idx = parameters.count > idx ? idx : parameters.count - 1;
+        parsedResult = [parsedResult stringByReplacingOccurrencesOfString:obj withString:parameters[idx]];
+    }];
+    
+    return parsedResult;
+}
+
+#pragma mark - Utils
+
++ (BOOL)checkIfContainsSpecialCharacter:(NSString *)checkedString {
+    NSCharacterSet *specialCharactersSet = [NSCharacterSet characterSetWithCharactersInString:specialCharacters];
+    return [checkedString rangeOfCharacterFromSet:specialCharactersSet].location != NSNotFound;
 }
 
 @end
