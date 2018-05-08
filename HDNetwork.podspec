@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HDNetwork'
-  s.version          = '0.0.1'
+  s.version          = '0.0.3'
   s.summary          = 'A short description of HDNetwork.'
 
 # This description is used to generate tags and improve search results.
@@ -23,7 +23,7 @@ HDNetwork对AFHTTPSessionManager进行二次封装，包括网络请求，文件
 
   s.homepage         = 'https://github.com/hongdong/HDNetwork'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = 'MIT'
   s.author           = { 'Abnerh' => 'fjhongdong@126.com' }
   s.source           = { :git => 'https://github.com/hongdong/HDNetwork.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
