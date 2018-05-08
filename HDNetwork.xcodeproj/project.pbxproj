@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE09E83420A1447900FE4A86 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE09E83320A1447900FE4A86 /* AppDelegate.m */; };
+		AE09E83C20A1447B00FE4A86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE09E83B20A1447B00FE4A86 /* Assets.xcassets */; };
+		AE09E83F20A1447B00FE4A86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE09E83D20A1447B00FE4A86 /* LaunchScreen.storyboard */; };
+		AE09E84220A1447B00FE4A86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE09E84120A1447B00FE4A86 /* main.m */; };
+		AE09E84B20A146AC00FE4A86 /* HDNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AE09E84920A146AC00FE4A86 /* HDNetwork.m */; };
+		AE58113020A14CFF0079D25C /* HDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE58112E20A14CFF0079D25C /* HDViewController.m */; };
+		AE58113120A14CFF0079D25C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE58112F20A14CFF0079D25C /* Main.storyboard */; };
+		E1201033ED3AFDF9D6091589 /* libPods-HDNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB7846F3D01EE30D321097C /* libPods-HDNetwork.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		585C13C39D14F908DE72DFED /* Pods-HDNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HDNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-HDNetwork/Pods-HDNetwork.release.xcconfig"; sourceTree = "<group>"; };
+		5BB7846F3D01EE30D321097C /* libPods-HDNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HDNetwork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE09E82F20A1447900FE4A86 /* HDNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HDNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE09E83220A1447900FE4A86 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AE09E83320A1447900FE4A86 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AE09E83B20A1447B00FE4A86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AE09E83E20A1447B00FE4A86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AE09E84020A1447B00FE4A86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE09E84120A1447B00FE4A86 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AE09E84920A146AC00FE4A86 /* HDNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNetwork.m; sourceTree = "<group>"; };
+		AE09E84A20A146AC00FE4A86 /* HDNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNetwork.h; sourceTree = "<group>"; };
+		AE58112D20A14CFF0079D25C /* HDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDViewController.h; sourceTree = "<group>"; };
+		AE58112E20A14CFF0079D25C /* HDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDViewController.m; sourceTree = "<group>"; };
+		AE58112F20A14CFF0079D25C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DA2ED7BCAE92567405341126 /* Pods-HDNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HDNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HDNetwork/Pods-HDNetwork.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE09E82C20A1447900FE4A86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1201033ED3AFDF9D6091589 /* libPods-HDNetwork.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		375BB5BE28DE711D52398D66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5BB7846F3D01EE30D321097C /* libPods-HDNetwork.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE09E82620A1447900FE4A86 = {
+			isa = PBXGroup;
+			children = (
+				AE09E83120A1447900FE4A86 /* HDNetwork */,
+				AE09E83020A1447900FE4A86 /* Products */,
+				E23C9A67DBC88408428B6EE8 /* Pods */,
+				375BB5BE28DE711D52398D66 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AE09E83020A1447900FE4A86 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE09E82F20A1447900FE4A86 /* HDNetwork.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE09E83120A1447900FE4A86 /* HDNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				AE09E84820A145B300FE4A86 /* HDNetwork */,
+				AE09E83220A1447900FE4A86 /* AppDelegate.h */,
+				AE09E83320A1447900FE4A86 /* AppDelegate.m */,
+				AE58112D20A14CFF0079D25C /* HDViewController.h */,
+				AE58112E20A14CFF0079D25C /* HDViewController.m */,
+				AE58112F20A14CFF0079D25C /* Main.storyboard */,
+				AE09E83B20A1447B00FE4A86 /* Assets.xcassets */,
+				AE09E83D20A1447B00FE4A86 /* LaunchScreen.storyboard */,
+				AE09E84020A1447B00FE4A86 /* Info.plist */,
+				AE09E84120A1447B00FE4A86 /* main.m */,
+			);
+			path = HDNetwork;
+			sourceTree = "<group>";
+		};
+		AE09E84820A145B300FE4A86 /* HDNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				AE09E84A20A146AC00FE4A86 /* HDNetwork.h */,
+				AE09E84920A146AC00FE4A86 /* HDNetwork.m */,
+			);
+			path = HDNetwork;
+			sourceTree = "<group>";
+		};
+		E23C9A67DBC88408428B6EE8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA2ED7BCAE92567405341126 /* Pods-HDNetwork.debug.xcconfig */,
+				585C13C39D14F908DE72DFED /* Pods-HDNetwork.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE09E82E20A1447900FE4A86 /* HDNetwork */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE09E84520A1447B00FE4A86 /* Build configuration list for PBXNativeTarget "HDNetwork" */;
+			buildPhases = (
+				34187685BABF2079DFE0969D /* [CP] Check Pods Manifest.lock */,
+				AE09E82B20A1447900FE4A86 /* Sources */,
+				AE09E82C20A1447900FE4A86 /* Frameworks */,
+				AE09E82D20A1447900FE4A86 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HDNetwork;
+			productName = HDNetwork;
+			productReference = AE09E82F20A1447900FE4A86 /* HDNetwork.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE09E82720A1447900FE4A86 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = Abnerh;
+				TargetAttributes = {
+					AE09E82E20A1447900FE4A86 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+				};
+			};
+			buildConfigurationList = AE09E82A20A1447900FE4A86 /* Build configuration list for PBXProject "HDNetwork" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AE09E82620A1447900FE4A86;
+			productRefGroup = AE09E83020A1447900FE4A86 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE09E82E20A1447900FE4A86 /* HDNetwork */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE09E82D20A1447900FE4A86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE58113120A14CFF0079D25C /* Main.storyboard in Resources */,
+				AE09E83F20A1447B00FE4A86 /* LaunchScreen.storyboard in Resources */,
+				AE09E83C20A1447B00FE4A86 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34187685BABF2079DFE0969D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HDNetwork-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE09E82B20A1447900FE4A86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE58113020A14CFF0079D25C /* HDViewController.m in Sources */,
+				AE09E84220A1447B00FE4A86 /* main.m in Sources */,
+				AE09E84B20A146AC00FE4A86 /* HDNetwork.m in Sources */,
+				AE09E83420A1447900FE4A86 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AE09E83D20A1447B00FE4A86 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE09E83E20A1447B00FE4A86 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AE09E84320A1447B00FE4A86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AE09E84420A1447B00FE4A86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AE09E84620A1447B00FE4A86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA2ED7BCAE92567405341126 /* Pods-HDNetwork.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HDNetwork/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.abnerh.HDNetwork;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AE09E84720A1447B00FE4A86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 585C13C39D14F908DE72DFED /* Pods-HDNetwork.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HDNetwork/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.abnerh.HDNetwork;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE09E82A20A1447900FE4A86 /* Build configuration list for PBXProject "HDNetwork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE09E84320A1447B00FE4A86 /* Debug */,
+				AE09E84420A1447B00FE4A86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE09E84520A1447B00FE4A86 /* Build configuration list for PBXNativeTarget "HDNetwork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE09E84620A1447B00FE4A86 /* Debug */,
+				AE09E84720A1447B00FE4A86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE09E82720A1447900FE4A86 /* Project object */;
+}

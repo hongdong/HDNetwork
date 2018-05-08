@@ -1,6 +1,6 @@
 # HDNetwork
 
-# HJNetwork
+# HDNetwork
 
 [![CI Status](http://img.shields.io/travis/Johnny/HJNetwork.svg?style=flat)](https://travis-ci.org/Johnny/HJNetwork)
 [![Version](https://img.shields.io/cocoapods/v/HJNetwork.svg?style=flat)](http://cocoapods.org/pods/HJNetwork)
@@ -9,7 +9,7 @@
 ## 前言
 ```ruby
 本来是想在GitHub找一个符合自己App的网络请求库，结果就是要么不支持数据缓存或者不支持RESTful API 请求，
-又或者带缓存的又不支持过滤某一些参数字段(否则无法得到缓存)，带着这样的需求之下就有了 “HJNetwork” 这个库。
+又或者带缓存的又不支持过滤某一些参数字段(否则无法得到缓存)，带着这样的需求之下就有了 “HDNetwork” 这个库。
 初衷就是尽最大的努力最大程度下满足所有App的日常需求。
 ```
 	
@@ -17,7 +17,7 @@
 <img src="https://raw.githubusercontent.com/JohnnyHooo/HJNetwork/master/HJNetwork.png"  width="313" height="616"  alt="Demo效果" align=right />
 
 ## 特点
-- HJNetwork 对 AFHTTPSessionManager 进行二次封装。包括网络请求、文件上传、文件下载这三个方法。并且支持RESTful API GET、POST、PUT、DELETE、PATCH的请求。同时使用YYCache做了强大的缓存策略。
+- HDNetwork 对 AFHTTPSessionManager 进行二次封装。包括网络请求、文件上传、文件下载这三个方法。并且支持RESTful API GET、POST、PUT、DELETE、PATCH的请求。同时使用YYCache做了强大的缓存策略。
 
 - 拥有 AFNetwork 大部分常用功能，包括网络状态监听等，提供类方法和实例方法调用。
 
@@ -33,24 +33,24 @@
 ### 支持 Cocoapods 安装
 
 ```ruby
-pod 'HJNetwork'
+pod 'HDNetwork'
 ```
 <br /> 
 
 ## 使用
-**所有方法都可以直接看 HJNetworking.h 中的声明以及注释。**
+**所有方法都可以直接看 HDNetworking.h 中的声明以及注释。**
 
-### HJNetwork 的全局配置
+### HDNetwork 的全局配置
 
 #### 设置请求根路径
 
 ```objc
-[HJNetwork setBaseURL:@"https://atime.com/app/v1/"];
+[HDNetwork setBaseURL:@"https://atime.com/app/v1/"];
 ```
 #### 设置缓存过滤参数key(如时间戳，随机数)否则会导致无法得到缓存数据
 
 ```objc
-[HJNetwork setFiltrationCacheKey:@[@"time",@"ts"]];
+[HDNetwork setFiltrationCacheKey:@[@"time",@"ts"]];
 ```
 
 
@@ -59,25 +59,25 @@ pod 'HJNetwork'
 ##### 日志打印的开关
 
 ```objc
-[HJNetwork setLogEnabled:YES];
+[HDNetwork setLogEnabled:YES];
 ```
 ### 网络状态
 
 #### 网络状态监听
 
 ```objc
-[HJNetwork getNetworkStatusWithBlock:^(HJNetworkStatusType status) {
+[HDNetwork getNetworkStatusWithBlock:^(HDNetworkStatusType status) {
         switch (status) {
-            case HJNetworkStatusUnknown:
+            case HDNetworkStatusUnknown:
                 //未知网络
                 break;
-            case HJNetworkStatusNotReachable:
+            case HDNetworkStatusNotReachable:
                 //无网路
                 break;
-            case HJNetworkStatusReachableWWAN:
+            case HDNetworkStatusReachableWWAN:
                 //手机网络
                 break;
-            case HJNetworkStatusReachableWiFi:
+            case HDNetworkStatusReachableWiFi:
                 //WiFi网络
                 break;
             default:
@@ -92,19 +92,19 @@ pod 'HJNetwork'
 #### 缓存策略
 
 ```objc
-typedef NS_ENUM(NSUInteger, HJCachePolicy){
+typedef NS_ENUM(NSUInteger, HDCachePolicy){
     /**只从网络获取数据，且数据不会缓存在本地*/
-    HJCachePolicyIgnoreCache = 0,
+    HDCachePolicyIgnoreCache = 0,
     /**只从缓存读数据，如果缓存没有数据，返回一个空*/
-    HJCachePolicyCacheOnly = 1,
+    HDCachePolicyCacheOnly = 1,
     /**先从网络获取数据，同时会在本地缓存数据*/
-    HJCachePolicyNetworkOnly = 2,
+    HDCachePolicyNetworkOnly = 2,
     /**先从缓存读取数据，如果没有再从网络获取*/
-    HJCachePolicyCacheElseNetwork = 3,
+    HDCachePolicyCacheElseNetwork = 3,
     /**先从网络获取数据，如果没有在从缓存获取，此处的没有可以理解为访问网络失败，再从缓存读取*/
-    HJCachePolicyNetworkElseCache = 4,
+    HDCachePolicyNetworkElseCache = 4,
     /**先从缓存读取数据，然后在从网络获取并且缓存，在这种情况下，Block将产生两次调用*/
-    HJCachePolicyCacheThenNetwork = 5
+    HDCachePolicyCacheThenNetwork = 5
 };
 ```
 #### 请求方式
@@ -120,8 +120,8 @@ typedef NS_ENUM(NSUInteger, HJCachePolicy){
  */
 + (void)POSTWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HJCachePolicy)cachePolicy
-            callback:(HJHttpRequest)callback;
+        cachePolicy:(HDCachePolicy)cachePolicy
+            callback:(HDHttpRequest)callback;
 ```
 **自定义请求方式：**
 ```objc
@@ -134,11 +134,11 @@ typedef NS_ENUM(NSUInteger, HJCachePolicy){
  @param cachePolicy 缓存策略
  @param callback 请求回调
  */
-+ (void)HTTPWithMethod:(HJRequestMethod)method
++ (void)HTTPWithMethod:(HDRequestMethod)method
                     url:(NSString *)url
              parameters:(NSDictionary *)parameters
-            cachePolicy:(HJCachePolicy)cachePolicy
-                callback:(HJHttpRequest)callback;
+            cachePolicy:(HDCachePolicy)cachePolicy
+                callback:(HDHttpRequest)callback;
 ```
 #### 取消请求
 
@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, HJCachePolicy){
                parameters:(NSDictionary *)parameters
                      name:(NSString *)name
                  filePath:(NSString *)filePath
-                 progress:(HJHttpProgress)progress
-                  callback:(HJHttpRequest)callback;
+                 progress:(HDHttpProgress)progress
+                  callback:(HDHttpRequest)callback;
 ```
 
 
@@ -188,8 +188,8 @@ typedef NS_ENUM(NSUInteger, HJCachePolicy){
  */
 + (void)downloadWithURL:(NSString *)url
                 fileDir:(NSString *)fileDir
-               progress:(HJHttpProgress)progress
-                callback:(HJHttpDownload)callback;
+               progress:(HDHttpProgress)progress
+                callback:(HDHttpDownload)callback;
 ```
 <br /> 
 
