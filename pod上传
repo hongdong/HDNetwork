@@ -1,0 +1,4 @@
+pod trunk register  fjhongdong@126.com 'AbnerH' --description='macbook pro' --verbose
+pod trunk push HDNetwork.podspec
+#pod spec lint --allow-warnings --use-libraries 校验命令
+#pod trunk push HDNetwork.podspec --allow-warnings --use-libraries   上传命令
