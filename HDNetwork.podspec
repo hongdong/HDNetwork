@@ -30,7 +30,7 @@ HDNetwork对AFHTTPSessionManager进行二次封装，包括网络请求，文件
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'HJNetwork/HJNetwork/*.{h,m}'
+  s.source_files = 'HDNetwork/HDNetwork/*.{h,m}'
   
   # s.resource_bundles = {
   #   'HJNetwork' => ['HJNetwork/Assets/*.png']
