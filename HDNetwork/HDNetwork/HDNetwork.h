@@ -160,12 +160,10 @@ typedef id(^ResponseReduceBlock)(NSURLSessionDataTask * _Nonnull task, id _Nulla
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  @param callback 请求回调
  */
 + (void)POSTWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback;
 
 /**
@@ -173,12 +171,10 @@ typedef id(^ResponseReduceBlock)(NSURLSessionDataTask * _Nonnull task, id _Nulla
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  @param callback 请求回调
  */
 + (void)HEADWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback;
 
 
@@ -187,12 +183,10 @@ typedef id(^ResponseReduceBlock)(NSURLSessionDataTask * _Nonnull task, id _Nulla
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  @param callback 请求回调
  */
 + (void)PUTWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback;
 
 
@@ -202,12 +196,10 @@ typedef id(^ResponseReduceBlock)(NSURLSessionDataTask * _Nonnull task, id _Nulla
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  @param callback 请求回调
  */
 + (void)PATCHWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback;
 
 
@@ -216,29 +208,37 @@ typedef id(^ResponseReduceBlock)(NSURLSessionDataTask * _Nonnull task, id _Nulla
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  @param callback 请求回调
  */
 + (void)DELETEWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback;
 
-
 /**
- 自定义请求方式
+ GET支持缓存请求方式
  
- @param method 请求方式(GET, POST, HEAD, PUT, PATCH, DELETE)
  @param url 请求地址
  @param parameters 请求参数
  @param cachePolicy 缓存策略
  @param callback 请求回调
  */
-+ (void)HTTPWithMethod:(HDRequestMethod)method
-                    url:(NSString *)url
-             parameters:(NSDictionary *)parameters
-            cachePolicy:(HDCachePolicy)cachePolicy
-                callback:(HDHttpRequest)callback;
++ (void)HTTPGetUrl:(NSString *)url
+        parameters:(NSDictionary *)parameters
+       cachePolicy:(HDCachePolicy)cachePolicy
+          callback:(HDHttpRequest)callback;
+
+/**
+ 不使用缓存请求方式
+ 
+ @param method 请求方式(GET, POST, HEAD, PUT, PATCH, DELETE)
+ @param url 请求地址
+ @param parameters 请求参数
+ @param callback 请求回调
+ */
++ (void)HTTPUnCacheWithMethod:(HDRequestMethod)method
+                          url:(NSString *)url
+                   parameters:(NSDictionary *)parameters
+                     callback:(HDHttpRequest)callback;
 
 
 /**

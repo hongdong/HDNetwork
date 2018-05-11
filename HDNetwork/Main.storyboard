@@ -146,6 +146,7 @@
                     <navigationItem key="navigationItem" title="HDNetwork" id="taW-qy-edU"/>
                     <connections>
                         <outlet property="cacheLabel" destination="SJK-Hx-qgV" id="2XG-3J-2gC"/>
+                        <outlet property="cacheSegment" destination="xDa-JG-vug" id="Up7-bT-Ayz"/>
                         <outlet property="requestBtn" destination="egZ-RA-Agw" id="BrG-cV-ZuJ"/>
                         <outlet property="responseTextView" destination="AFV-4s-90s" id="hwK-CT-Ipo"/>
                         <outlet property="stateLabel" destination="mVJ-yP-bwU" id="Kfy-L8-ZLE"/>

@@ -24,7 +24,7 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
 + (RACSignal *)rac_GETWithURL:(NSString *)url
                    parameters:(NSDictionary *)parameters
                   cachePolicy:(HDCachePolicy)cachePolicy{
-    return [self rac_HTTPWithMethod:HDRequestMethodGET url:url parameters:parameters cachePolicy:cachePolicy];
+    return [self rac_HTTPUnCacheWithMethod:HDRequestMethodGET url:url parameters:parameters];
 }
 
 
@@ -33,12 +33,10 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_POSTWithURL:(NSString *)url
-                    parameters:(NSDictionary *)parameters
-                   cachePolicy:(HDCachePolicy)cachePolicy{
-    return [self rac_HTTPWithMethod:HDRequestMethodPOST url:url parameters:parameters cachePolicy:cachePolicy];
+                    parameters:(NSDictionary *)parameters{
+    return [self rac_HTTPUnCacheWithMethod:HDRequestMethodPOST url:url parameters:parameters];
 }
 
 /**
@@ -46,12 +44,10 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_HEADWithURL:(NSString *)url
-                    parameters:(NSDictionary *)parameters
-                   cachePolicy:(HDCachePolicy)cachePolicy{
-    return [self rac_HTTPWithMethod:HDRequestMethodHEAD url:url parameters:parameters cachePolicy:cachePolicy];
+                    parameters:(NSDictionary *)parameters{
+    return [self rac_HTTPUnCacheWithMethod:HDRequestMethodHEAD url:url parameters:parameters];
 }
 
 
@@ -60,12 +56,10 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_PUTWithURL:(NSString *)url
-                   parameters:(NSDictionary *)parameters
-                  cachePolicy:(HDCachePolicy)cachePolicy{
-    return [self rac_HTTPWithMethod:HDRequestMethodPUT url:url parameters:parameters cachePolicy:cachePolicy];
+                   parameters:(NSDictionary *)parameters{
+    return [self rac_HTTPUnCacheWithMethod:HDRequestMethodPUT url:url parameters:parameters];
 }
 
 
@@ -75,12 +69,10 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_PATCHWithURL:(NSString *)url
-                     parameters:(NSDictionary *)parameters
-                    cachePolicy:(HDCachePolicy)cachePolicy{
-    return [self rac_HTTPWithMethod:HDRequestMethodPATCH url:url parameters:parameters cachePolicy:cachePolicy];
+                     parameters:(NSDictionary *)parameters{
+    return [self rac_HTTPUnCacheWithMethod:HDRequestMethodPATCH url:url parameters:parameters];
 }
 
 
@@ -89,28 +81,24 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_DELETEWithURL:(NSString *)url
-                      parameters:(NSDictionary *)parameters
-                     cachePolicy:(HDCachePolicy)cachePolicy{
-    return [self rac_HTTPWithMethod:HDRequestMethodDELETE url:url parameters:parameters cachePolicy:cachePolicy];
+                      parameters:(NSDictionary *)parameters{
+    return [self rac_HTTPUnCacheWithMethod:HDRequestMethodDELETE url:url parameters:parameters];
 }
 
 /**
- RAC自定义请求方式
+ RACGET支持缓存请求方式
  
- @param method 请求方式(GET, POST, HEAD, PUT, PATCH, DELETE)
  @param url 请求地址
  @param parameters 请求参数
  @param cachePolicy 缓存策略
  */
-+ (RACSignal *)rac_HTTPWithMethod:(HDRequestMethod)method
-                          url:(NSString *)url
++ (RACSignal *)rac_HTTPGetUrl:(NSString *)url
                    parameters:(NSDictionary *)parameters
                   cachePolicy:(HDCachePolicy)cachePolicy{
     RACSignal *requestSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-        [HDNetwork HTTPWithMethod:method url:url parameters:parameters cachePolicy:cachePolicy callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+        [HDNetwork HTTPGetUrl:url parameters:parameters cachePolicy:cachePolicy callback:^(id responseObject, NSError *error, BOOL isFromCache) {
             
             if (error) {
                 
@@ -139,5 +127,35 @@ static NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
     
     return requestSignal;
     
+}
+
++ (RACSignal *)rac_HTTPUnCacheWithMethod:(HDRequestMethod)method
+                              url:(NSString *)url
+                       parameters:(NSDictionary *)parameters{
+    RACSignal *requestSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        [HDNetwork HTTPUnCacheWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+            
+            if (error) {
+                
+                NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
+                if (responseObject) {
+                    userInfo[RACAFNResponseObjectErrorKey] = responseObject;
+                }
+                NSError *errorWithRes = [NSError errorWithDomain:error.domain code:error.code userInfo:[userInfo copy]];
+                [subscriber sendError:errorWithRes];
+                
+            } else {
+                
+                [subscriber sendNext:responseObject];
+                [subscriber sendCompleted];
+                
+            }
+            
+        }];
+        return [RACDisposable disposableWithBlock:^{
+            
+        }];
+    }];
+    return requestSignal;
 }
 @end

@@ -15,15 +15,15 @@
 
 #define HDRACGET(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_GETWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_ cachePolicy:HDCachePolicyIgnoreCache])
 
-#define HDRACPOST(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_POSTWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_ cachePolicy:HDCachePolicyIgnoreCache])
+#define HDRACPOST(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_POSTWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_])
 
-#define HDRACHEAD(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_HEADWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_ cachePolicy:HDCachePolicyIgnoreCache])
+#define HDRACHEAD(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_HEADWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_])
 
-#define HDRACPUT(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_PUTWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_ cachePolicy:HDCachePolicyIgnoreCache])
+#define HDRACPUT(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_PUTWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_])
 
-#define HDRACPATCH(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_PATCHWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_ cachePolicy:HDCachePolicyIgnoreCache])
+#define HDRACPATCH(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_PATCHWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_])
 
-#define HDRACDELETE(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_DELETEWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_ cachePolicy:HDCachePolicyIgnoreCache])
+#define HDRACDELETE(_URL_,_urlParmArr_,_parmDic_) ([HDNetwork rac_DELETEWithURL:[HDNetwork HDGenerateURLWithPattern:_URL_ parameters:_urlParmArr_] parameters:_parmDic_])
 
 @class RACSignal;
 
@@ -46,22 +46,18 @@
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_POSTWithURL:(NSString *)url
-         parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy;
+         parameters:(NSDictionary *)parameters;
 
 /**
  RAC HEAD请求
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_HEADWithURL:(NSString *)url
-         parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy;
+         parameters:(NSDictionary *)parameters;
 
 
 /**
@@ -69,11 +65,9 @@
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_PUTWithURL:(NSString *)url
-        parameters:(NSDictionary *)parameters
-       cachePolicy:(HDCachePolicy)cachePolicy;
+        parameters:(NSDictionary *)parameters;
 
 
 
@@ -82,11 +76,9 @@
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_PATCHWithURL:(NSString *)url
-          parameters:(NSDictionary *)parameters
-         cachePolicy:(HDCachePolicy)cachePolicy;
+          parameters:(NSDictionary *)parameters;
 
 
 /**
@@ -94,23 +86,31 @@
  
  @param url 请求地址
  @param parameters 请求参数
- @param cachePolicy 缓存策略
  */
 + (RACSignal *)rac_DELETEWithURL:(NSString *)url
-           parameters:(NSDictionary *)parameters
-          cachePolicy:(HDCachePolicy)cachePolicy;
+           parameters:(NSDictionary *)parameters;
 
 /**
- RAC自定义请求方式
+ RAC GET支持缓存请求方式
  
- @param method 请求方式(GET, POST, HEAD, PUT, PATCH, DELETE)
  @param url 请求地址
  @param parameters 请求参数
  @param cachePolicy 缓存策略
  */
-+ (RACSignal *)rac_HTTPWithMethod:(HDRequestMethod)method
-                   url:(NSString *)url
++ (RACSignal *)rac_HTTPGetUrl:(NSString *)url
             parameters:(NSDictionary *)parameters
            cachePolicy:(HDCachePolicy)cachePolicy;
+
+/**
+ RAC 无缓存请求方式
+ 
+ @param method 请求方式(GET, POST, HEAD, PUT, PATCH, DELETE)
+ @param url 请求地址
+ @param parameters 请求参数
+ */
+
++ (RACSignal *)rac_HTTPUnCacheWithMethod:(HDRequestMethod)method
+                    url:(NSString *)url
+                    parameters:(NSDictionary *)parameters;
 
 @end

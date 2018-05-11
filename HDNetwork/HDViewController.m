@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cacheLabel;
 @property (weak, nonatomic) IBOutlet UIButton *requestBtn;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *cacheSegment;
 
 @end
 
@@ -53,28 +54,57 @@
 
 /**修改缓存策略*/
 - (IBAction)changeCachePolicy:(UISegmentedControl *)sender {
+    
     cachePolicy = sender.selectedSegmentIndex;
     _cacheLabel.text = [self getCacheStr:cachePolicy];
+    
 }
 
 /**修改请求方法*/
 - (IBAction)changeMethod:(UISegmentedControl *)sender {
+    
+    if (sender.selectedSegmentIndex > 0) {
+        _cacheLabel.text = @"除了GET以外的请求不需要缓存";
+        self.cacheSegment.selectedSegmentIndex = 0;
+        self.cacheSegment.enabled = NO;
+    }
+    else{
+        self.cacheSegment.enabled = YES;
+    }
+    
+    
     method = sender.selectedSegmentIndex;
+    
 }
 
 /**请求*/
 - (IBAction)request:(UIButton *)sender {
     sender.enabled = NO;
     __weak __typeof(&*self)weakSelf = self;
-    [HDNetwork HTTPWithMethod:method url:_urlTextField.text parameters:nil cachePolicy:cachePolicy callback:^(id responseObject, NSError *error, BOOL isFromCache) {
-        sender.enabled = YES;
-        if (!error) {
-            weakSelf.responseTextView.text = [NSString stringWithFormat:@"%@",responseObject];
-        }else{
-            weakSelf.responseTextView.text = [error localizedDescription];
-            NSLog(@"---->%@",@"错误");
-        }
-    }];
+    if (HDRequestMethodGET == method) {
+        [HDNetwork HTTPGetUrl:_urlTextField.text parameters:nil cachePolicy:cachePolicy callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+            sender.enabled = YES;
+            if (!error) {
+                weakSelf.responseTextView.text = [NSString stringWithFormat:@"%@",responseObject];
+            }else{
+                weakSelf.responseTextView.text = [error localizedDescription];
+                NSLog(@"---->%@",@"错误");
+            }
+        }];
+    }
+    else{
+        [HDNetwork HTTPUnCacheWithMethod:method url:_urlTextField.text parameters:nil callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+            sender.enabled = YES;
+            if (!error) {
+                weakSelf.responseTextView.text = [NSString stringWithFormat:@"%@",responseObject];
+            }else{
+                weakSelf.responseTextView.text = [error localizedDescription];
+                NSLog(@"---->%@",@"错误");
+            }
+        }];
+    }
+
+    
 }
 
 /**取消请求*/

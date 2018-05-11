@@ -241,65 +241,57 @@ static ResponseReduceBlock _responseReduceBlock;
        cachePolicy:(HDCachePolicy)cachePolicy
            callback:(HDHttpRequest)callback
 {
-    [self HTTPWithMethod:HDRequestMethodGET url:url parameters:parameters cachePolicy:cachePolicy callback:callback];
+    [self HTTPGetUrl:url parameters:parameters cachePolicy:cachePolicy callback:callback];
 }
 
 
 #pragma mark -- POST请求
 + (void)POSTWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback
 {
-    [self HTTPWithMethod:HDRequestMethodPOST url:url parameters:parameters cachePolicy:cachePolicy callback:callback];
+    [self HTTPUnCacheWithMethod:HDRequestMethodPOST url:url parameters:parameters callback:callback];
 }
 
 #pragma mark -- HEAD请求
 + (void)HEADWithURL:(NSString *)url
          parameters:(NSDictionary *)parameters
-        cachePolicy:(HDCachePolicy)cachePolicy
             callback:(HDHttpRequest)callback
 {
-    [self HTTPWithMethod:HDRequestMethodHEAD url:url parameters:parameters cachePolicy:cachePolicy callback:callback];
+    [self HTTPUnCacheWithMethod:HDRequestMethodHEAD url:url parameters:parameters callback:callback];
 }
 
 
 #pragma mark -- PUT请求
 + (void)PUTWithURL:(NSString *)url
         parameters:(NSDictionary *)parameters
-       cachePolicy:(HDCachePolicy)cachePolicy
            callback:(HDHttpRequest)callback
 {
-    [self HTTPWithMethod:HDRequestMethodPUT url:url parameters:parameters cachePolicy:cachePolicy callback:callback];
+    [self HTTPUnCacheWithMethod:HDRequestMethodPUT url:url parameters:parameters callback:callback];
 }
 
 
 #pragma mark -- PATCH请求
 + (void)PATCHWithURL:(NSString *)url
           parameters:(NSDictionary *)parameters
-         cachePolicy:(HDCachePolicy)cachePolicy
              callback:(HDHttpRequest)callback
 {
-    [self HTTPWithMethod:HDRequestMethodPATCH url:url parameters:parameters cachePolicy:cachePolicy callback:callback];
+    [self HTTPUnCacheWithMethod:HDRequestMethodPATCH url:url parameters:parameters callback:callback];
 }
 
 
 #pragma mark -- DELETE请求
 + (void)DELETEWithURL:(NSString *)url
            parameters:(NSDictionary *)parameters
-          cachePolicy:(HDCachePolicy)cachePolicy
               callback:(HDHttpRequest)callback
 {
-    [self HTTPWithMethod:HDRequestMethodDELETE url:url parameters:parameters cachePolicy:cachePolicy callback:callback];
+    [self HTTPUnCacheWithMethod:HDRequestMethodDELETE url:url parameters:parameters callback:callback];
 }
 
-
-+ (void)HTTPWithMethod:(HDRequestMethod)method
-                    url:(NSString *)url
-             parameters:(NSDictionary *)parameters
-            cachePolicy:(HDCachePolicy)cachePolicy
-                callback:(HDHttpRequest)callback
-{
++ (void)HTTPGetUrl:(NSString *)url
+            parameters:(NSDictionary *)parameters
+           cachePolicy:(HDCachePolicy)cachePolicy
+              callback:(HDHttpRequest)callback{
     if (_baseURL.length) {
         url = [NSString stringWithFormat:@"%@%@",_baseURL,url];
     }
@@ -310,12 +302,12 @@ static ResponseReduceBlock _responseReduceBlock;
     }
     
     if (_logEnabled) {
-        ATLog(@"\n请求参数 = %@\n请求URL = %@\n请求方式 = %@\n缓存策略 = %@\n版本缓存 = %@",parameters ? [self jsonToString:parameters]:@"空", url, [self getMethodStr:method], [self cachePolicyStr:cachePolicy], _cacheVersionEnabled? @"启用":@"未启用");
+        ATLog(@"\n请求参数 = %@\n请求URL = %@\n请求方式 = %@\n缓存策略 = %@\n版本缓存 = %@",parameters ? [self jsonToString:parameters]:@"空", url, [self getMethodStr:HDRequestMethodGET], [self cachePolicyStr:cachePolicy], _cacheVersionEnabled? @"启用":@"未启用");
     }
     
     if (cachePolicy == HDCachePolicyIgnoreCache) {
         //只从网络获取数据，且数据不会缓存在本地
-        [self httpWithMethod:method url:url parameters:parameters callback:callback];
+        [self httpWithMethod:HDRequestMethodGET url:url parameters:parameters callback:callback];
     }else if (cachePolicy == HDCachePolicyCacheOnly){
         //只从缓存读数据，如果缓存没有数据，返回一个空。
         [self httpCacheForURL:url parameters:parameters withBlock:^(id<NSCoding> object) {
@@ -323,7 +315,7 @@ static ResponseReduceBlock _responseReduceBlock;
         }];
     }else if (cachePolicy == HDCachePolicyNetworkOnly){
         //先从网络获取数据，同时会在本地缓存数据
-        [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+        [self httpWithMethod:HDRequestMethodGET url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
             callback ? callback(responseObject, error, NO) : nil;
             [self setHttpCache:responseObject url:url parameters:parameters];
         }];
@@ -334,14 +326,14 @@ static ResponseReduceBlock _responseReduceBlock;
             if (object) {
                 callback ? callback(object, nil, YES) : nil;
             }else{
-                [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+                [self httpWithMethod:HDRequestMethodGET url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
                     callback ? callback(responseObject, error, NO) : nil;
                 }];
             }
         }];
     }else if (cachePolicy == HDCachePolicyNetworkElseCache){
         //先从网络获取数据，如果没有，此处的没有可以理解为访问网络失败，再从缓存读取
-        [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+        [self httpWithMethod:HDRequestMethodGET url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
             if (responseObject && !error) {
                 callback ? callback(responseObject, error, NO) : nil;
                 [self setHttpCache:responseObject url:url parameters:parameters];
@@ -355,7 +347,7 @@ static ResponseReduceBlock _responseReduceBlock;
         //先从缓存读取数据，然后在本地缓存数据，无论结果如何都会再次从网络获取数据，在这种情况下，Block将产生两次调用
         [self httpCacheForURL:url parameters:parameters withBlock:^(id<NSCoding> object) {
             callback ? callback(object, nil, YES) : nil;
-            [self httpWithMethod:method url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
+            [self httpWithMethod:HDRequestMethodGET url:url parameters:parameters callback:^(id responseObject, NSError *error, BOOL isFromCache) {
                 callback ? callback(responseObject, error, NO) : nil;
                 [self setHttpCache:responseObject url:url parameters:parameters];
             }];
@@ -363,11 +355,27 @@ static ResponseReduceBlock _responseReduceBlock;
     }else{
         //缓存策略错误，将采取 HDCachePolicyIgnoreCache 策略
         ATLog(@"缓存策略错误");
-        [self httpWithMethod:method url:url parameters:parameters callback:callback];
+        [self httpWithMethod:HDRequestMethodGET url:url parameters:parameters callback:callback];
     }
-    
 }
 
++ (void)HTTPUnCacheWithMethod:(HDRequestMethod)method
+                   url:(NSString *)url
+            parameters:(NSDictionary *)parameters
+              callback:(HDHttpRequest)callback{
+    if (_baseURL.length) {
+        url = [NSString stringWithFormat:@"%@%@",_baseURL,url];
+    }
+    if (_baseParameters.count) {
+        NSMutableDictionary * mutableBaseParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+        [mutableBaseParameters addEntriesFromDictionary:_baseParameters];
+        parameters = [mutableBaseParameters copy];
+    }
+    if (_logEnabled) {
+        ATLog(@"\n请求参数 = %@\n请求URL = %@\n请求方式 = %@\n缓存策略 = %@\n版本缓存 = %@",parameters ? [self jsonToString:parameters]:@"空", url, [self getMethodStr:method], [self cachePolicyStr:HDCachePolicyIgnoreCache], _cacheVersionEnabled? @"启用":@"未启用");
+    }
+    [self httpWithMethod:method url:url parameters:parameters callback:callback];
+}
 
 #pragma mark -- 网络请求处理
 +(void)httpWithMethod:(HDRequestMethod)method url:(NSString *)url parameters:(NSDictionary *)parameters callback:(HDHttpRequest)callback{
